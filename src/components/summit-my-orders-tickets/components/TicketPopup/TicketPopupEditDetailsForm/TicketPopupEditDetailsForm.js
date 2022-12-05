@@ -351,6 +351,11 @@ export const TicketPopupEditDetailsForm = ({
 
                 {summit.registration_disclaimer_content &&
                 <div className="column is-full attendee-info abc-checkbox">
+                    <div className="mt-3">
+                        <RawHTML>
+                            {summit.registration_disclaimer_content}
+                        </RawHTML>
+                    </div>
                     <input
                         type="checkbox"
                         id={TicketKeys.disclaimerAccepted}
@@ -367,11 +372,6 @@ export const TicketPopupEditDetailsForm = ({
                     {(formik.touched[TicketKeys.disclaimerAccepted] || triedSubmitting) && formik.errors[TicketKeys.disclaimerAccepted] &&
                     <p className="error-label">{t("ticket_popup.edit_required")}</p>
                     }
-                    <div className="mt-3">
-                        <RawHTML>
-                            {summit.registration_disclaimer_content}
-                        </RawHTML>
-                    </div>
                 </div>
                 }
             </div>

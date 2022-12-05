@@ -129,7 +129,9 @@ export const MarketingPageTemplate = class extends React.Component {
             </Masonry>
           </div>
         </div>
-        <PageContent content={content} />
+        <div className="container marketing-section-content">
+          <PageContent content={content} />
+        </div>
       </React.Fragment>
     )
   }

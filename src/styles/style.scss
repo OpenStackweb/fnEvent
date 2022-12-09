@@ -682,4 +682,14 @@ span.footer___FL9TW {
   color: #fff;
 }
 
+.modal.is-active {
+  @media screen and (max-height: 800px) {
+    padding: 75px 0 10px;
+    .modal-content {
+      height: 100%;
+      overflow: scroll;
+    }
+  }
+}
+
 @import "~openstack-uicore-foundation/lib/css/components/extra-questions.css";

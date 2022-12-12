@@ -4,8 +4,6 @@
       "requiresAuth": false,
       "showOnlyAtShowTime": false,
       "pageRestriction": [
-        "LOBBY",
-        "SHOW",
         "ACTIVITY",
         "CUSTOM_PAGE"
       ],

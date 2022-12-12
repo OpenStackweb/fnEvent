@@ -22,7 +22,9 @@ The event agenda is organized by use cases, including AI, CI/CD, containers, edg
 
 Learn more at: <a href="https://openinfra.dev/summit/vancouver-2023" target="_blank">https://openinfra.dev/summit/vancouver-2023</a>
 
-### [**OpenInfra Summit Sponsors**](https://openinfra.dev/summit-sponsor)
+Learn more at: <a href="https://openinfra.dev/summit/vancouver-2023" target="_blank">https://openinfra.dev/summit/vancouver-2023</a>
+
+<a href="https://openinfra.dev/summit-sponsor" target="_blank"><h3><b>OpenInfra Summit Sponsors</b></h3>
 
 The generous support of our sponsors makes it possible for our community to gather, learn and build the future of open infrastructure. Having a presence at the OpenInfra Summit is a great way to get your company in front of the OpenInfra community.
 

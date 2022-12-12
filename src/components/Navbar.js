@@ -161,7 +161,7 @@ const Navbar = ({
           className={`${styles.navbarMenu} ${navBarActiveClass}`}
         >
           <div className={styles.navbarStart}>
-            <div class="navbar-module--navbar-item--aS98D" display={isTicketsPage ? "block" : "none"}><a class="navbar-module--link--5kd9y" href="/"><span>Home</span></a></div>
+            <div class="navbar-tickets-home-item"><a class="navbar-home-link" href="/"><span>Home</span></a></div>
           </div>
           <div className={styles.navbarEnd}>
             {Content.items.filter(showItem).map((item, index) => (

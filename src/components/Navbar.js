@@ -92,6 +92,10 @@ const Navbar = ({
     return path.startsWith("/a/schedule");
   }
 
+  const isTicketsPage = (path) => {
+    return path.startsWith("/a/my-tickets");
+  }
+
   const isShowPage = (path) => {
     return isLobbyPage(path) || // lobby
         isActivityPage(path) || // activity
@@ -156,7 +160,9 @@ const Navbar = ({
           id="navbarBasicExample"
           className={`${styles.navbarMenu} ${navBarActiveClass}`}
         >
-          <div className={styles.navbarStart} />
+          <div className={styles.navbarStart}>
+            <div class="navbar-module--navbar-item--aS98D" display={isTicketsPage ? "block" : "none"}><a class="navbar-module--link--5kd9y" href="/"><span>Home</span></a></div>
+          </div>
           <div className={styles.navbarEnd}>
             {Content.items.filter(showItem).map((item, index) => (
               <div className={styles.navbarItem} key={index}>

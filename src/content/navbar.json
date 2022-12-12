@@ -4,9 +4,7 @@
       "requiresAuth": false,
       "showOnlyAtShowTime": false,
       "pageRestriction": [
-        "ACTIVITY",
-        "LOBBY",
-        "SHOW"
+        "CUSTOM_PAGE"
       ],
       "title": "Home",
       "link": "/",

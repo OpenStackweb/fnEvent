@@ -10,7 +10,8 @@
         "CUSTOM_PAGE"
       ],
       "title": "Home",
-      "link": "/"
+      "link": "/",
+      "display": true
     },
     {
       "title": "My Tickets",

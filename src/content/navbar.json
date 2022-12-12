@@ -1,10 +1,10 @@
 {
   "items": [
     {
-      "requiresAuth": false,
+      "requiresAuth": true,
       "showOnlyAtShowTime": false,
       "pageRestriction": [
-        "CUSTOM_PAGE"
+        "ANY"
       ],
       "title": "Home",
       "link": "/",

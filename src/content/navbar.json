@@ -1,6 +1,18 @@
 {
   "items": [
     {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "LOBBY",
+        "SHOW",
+        "ACTIVITY",
+        "CUSTOM_PAGE"
+      ],
+      "title": "Home",
+      "link": "/"
+    },
+    {
       "title": "My Tickets",
       "link": "/a/my-tickets",
       "display": true,

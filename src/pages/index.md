@@ -12,7 +12,7 @@ Join the global community June 13-15, 2023. Collaborate directly with the people
 
 **The OpenInfra Summit will be a limited-capacity, sellout event**. The ticket prices will increase on February 15th, 2023 at 11:59pm PT, so save your seat now!
 
-### OpenInfra Summit Schedule
+### **OpenInfra Summit Schedule**
 
 OpenInfra Summit attendees will engage in 100+ sessions around infrastructure use cases like cloud computing, edge computing, hardware enablement, and security. The OpenInfra Summit is focused on helping users compose, integrate, and operate these different technologies to solve real problems at scale.
 
@@ -26,8 +26,8 @@ Learn more at: <a href="https://openinfra.dev/summit/vancouver-2023" target="_bl
 
 The generous support of our sponsors makes it possible for our community to gather, learn and build the future of open infrastructure. Having a presence at the OpenInfra Summit is a great way to get your company in front of the OpenInfra community.
 
-Sponsorships for Vancouver are now live! Learn more <a href="https://openinfra.dev/summit/vancouver-2023/summit-sponsor/">here</a>.
+Sponsorships for Vancouver are now live! Learn more <a href="https://openinfra.dev/summit/vancouver-2023/summit-sponsor/" target="_blank">here</a>.
 
 ### **Code of Conduct**
 
-The OpenInfra Foundation is dedicated to providing an inclusive and safe OpenInfra Summit experience for everyone, regardless of gender, sexual orientation, disability, physical appearance, body size, race, nationality or religion. We do not tolerate harassment of OpenInfra Summit participants in any form. By registering for this event, we expect you to have read and agree to the <a href="https://openinfra.dev/legal/code-of-conduct/events">OpenInfra Events Code of Conduct</a>.
+The OpenInfra Foundation is dedicated to providing an inclusive and safe OpenInfra Summit experience for everyone, regardless of gender, sexual orientation, disability, physical appearance, body size, race, nationality or religion. We do not tolerate harassment of OpenInfra Summit participants in any form. By registering for this event, we expect you to have read and agree to the <a href="https://openinfra.dev/legal/code-of-conduct/events" target="_blank">OpenInfra Events Code of Conduct</a>.

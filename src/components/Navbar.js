@@ -156,7 +156,7 @@ const Navbar = ({
           <div className={styles.navbarEnd}>
             {Content.items.filter(showItem).map((item, index) => (
               <div className={styles.navbarItem} key={index}>
-                <Link to={item.link} target="_blank" className={styles.link}>
+                <Link to={item.link} className={styles.link}>
                   <span>{item.title}</span>
                 </Link>
               </div>

@@ -8,7 +8,7 @@
       ],
       "title": "Home",
       "link": "/",
-      "display": true
+      "display": false
     },
     {
       "title": "My Tickets",

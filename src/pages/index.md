@@ -4,7 +4,7 @@ templateKey: marketing-page
 
 ## About this event
 
-**Please Note: All OpenInfra Summit attendees are required to be fully vaccinated against the COVID-19 virus and face masks (covering your mouth and nose) are mandatory for all attendees. Please visit our Health & Safety guidelines for additional details and protocols.**
+**Please Note: All OpenInfra Summit attendees are required to be fully vaccinated against the COVID-19 virus and face masks (covering your mouth and nose) are mandatory for all attendees. Please visit our [Health & Safety guidelines](https://openinfra.dev/summit/vancouver-2023/summit-onsite-safety/) for additional details and protocols.**
 
 <a href="https://openinfra.dev/summit/" target="_blank">The OpenInfra Summit</a> is back and headed to Vancouver, British Columbia!
 
@@ -22,7 +22,7 @@ The event agenda is organized by use cases, including AI, CI/CD, containers, edg
 
 Learn more at: <a href="https://openinfra.dev/summit/vancouver-2023" target="_blank">https://openinfra.dev/summit/vancouver-2023</a>
 
-<a href="https://openinfra.dev/summit-sponsor" target="_blank"><h3><b>OpenInfra Summit Sponsors</b></h3>
+<h3><b>OpenInfra Summit Sponsors</b></h3>
 
 The generous support of our sponsors makes it possible for our community to gather, learn and build the future of open infrastructure. Having a presence at the OpenInfra Summit is a great way to get your company in front of the OpenInfra community.
 

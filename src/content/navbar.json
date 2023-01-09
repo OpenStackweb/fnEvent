@@ -36,6 +36,16 @@
       "pageRestriction": [
         "ANY"
       ]
+    },
+    {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "link": "https://openinfra.dev/summit/vancouver-2023/summit-onsite-safety/",
+      "title": "Health & Safety",
+      "display": true
     }
   ]
 }

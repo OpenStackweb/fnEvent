@@ -678,6 +678,10 @@ a[href*="support@fntech.com"] {
   content: ' Please click the "Finish Now" button to confirm your details for the event.';
 }
 
+.summit-registration-lite div[class*="passwordlessWrapper"] div[class*="innerWrapper"] img {
+  display: none;
+}
+
 span.footer___FL9TW {
   color: #fff;
 }

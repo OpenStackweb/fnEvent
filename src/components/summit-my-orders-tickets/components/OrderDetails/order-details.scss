@@ -93,6 +93,9 @@
 
   &__number {
     word-wrap: break-word;
+    @media screen and (min-width: 768px) {
+      width: fit-content;
+    }    
   }
 
   &--warning {

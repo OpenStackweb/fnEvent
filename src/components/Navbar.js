@@ -88,6 +88,10 @@ const Navbar = ({
     return path.startsWith("/a/sponsor");
   }
 
+  const isSchedulePage = (path) => {
+    return path.startsWith("/a/schedule");
+  }
+
   const isShowPage = (path) => {
     return isLobbyPage(path) || // lobby
         isActivityPage(path) || // activity

@@ -1,1 +1,19 @@
-{"favicon":"/img/favicon.png","widgets":{"chat":{"showQA":false,"showHelp":false,"defaultScope":"page"},"schedule":{"allowClick":true}},"lastBuild":1667915781898}
+{
+  "favicon": "/img/favicon.png",
+  "widgets": {
+    "chat": {
+      "showQA": false,
+      "showHelp": false,
+      "defaultScope": "page"
+    },
+    "schedule": {
+      "allowClick": true
+    }
+  },
+  "lastBuild": 1667915781898,
+  "favicons": {
+    "favicon180": "/img/openinfrafoundation-icon.png",
+    "favicon32": "/img/favicon-32x32.png",
+    "favicon16": "/img/favicon-16x16.png"
+  }
+}

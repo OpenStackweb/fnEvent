@@ -15,6 +15,7 @@ Join the global community June 13-15, 2023. Collaborate directly with the people
 ### **OpenInfra Summit Pricing**
 
 Regular Full Access Pass (deadline May 5 at 11:59pm PT): $799
+
 Late Full Access Pass: $1099
 
 All prices in USD.

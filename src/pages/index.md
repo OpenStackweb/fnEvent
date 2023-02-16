@@ -4,13 +4,6 @@ templateKey: marketing-page
 
 ## About this event
 
-### **OpenInfra Summit Pricing**
-
-Regular Full Access Pass (deadline May 5 at 11:59pm PT): $799
-Late Full Access Pass: $1099
-
-All prices in USD.
-
 **Please Note: All OpenInfra Summit attendees are required to be fully vaccinated against the COVID-19 virus and face masks (covering your mouth and nose) are mandatory for all attendees. Please visit our [Health & Safety guidelines](https://openinfra.dev/summit/vancouver-2023/summit-onsite-safety/) for additional details and protocols.**
 
 <a href="https://openinfra.dev/summit/" target="_blank">The OpenInfra Summit</a> is back and headed to Vancouver, British Columbia!
@@ -18,6 +11,13 @@ All prices in USD.
 Join the global community June 13-15, 2023. Collaborate directly with the people building and running open source infrastructure using Linux, OpenStack, Kubernetes and 30+ other technologies.
 
 **The OpenInfra Summit will be a limited-capacity, sellout event**. The ticket prices will increase on February 15th, 2023 at 11:59pm PT, so save your seat now!
+
+### **OpenInfra Summit Pricing**
+
+Regular Full Access Pass (deadline May 5 at 11:59pm PT): $799
+Late Full Access Pass: $1099
+
+All prices in USD.
 
 ### **OpenInfra Summit Schedule**
 

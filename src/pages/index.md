@@ -4,6 +4,13 @@ templateKey: marketing-page
 
 ## About this event
 
+### **OpenInfra Summit Pricing**
+
+Regular Full Access Pass (deadline May 5 at 11:59pm PT): $799
+Late Full Access Pass: $1099
+
+All prices in USD.
+
 **Please Note: All OpenInfra Summit attendees are required to be fully vaccinated against the COVID-19 virus and face masks (covering your mouth and nose) are mandatory for all attendees. Please visit our [Health & Safety guidelines](https://openinfra.dev/summit/vancouver-2023/summit-onsite-safety/) for additional details and protocols.**
 
 <a href="https://openinfra.dev/summit/" target="_blank">The OpenInfra Summit</a> is back and headed to Vancouver, British Columbia!

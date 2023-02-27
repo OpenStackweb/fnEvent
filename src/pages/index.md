@@ -10,7 +10,7 @@ templateKey: marketing-page
 
 Join the global community June 13-15, 2023. Collaborate directly with the people building and running open source infrastructure using Linux, OpenStack, Kubernetes and 30+ other technologies.
 
-**The OpenInfra Summit will be a limited-capacity, sellout event**. The ticket prices will increase on February 15th, 2023 at 11:59pm PT, so save your seat now!
+**The OpenInfra Summit will be a limited-capacity, sellout event**. The ticket prices will increase on May 5th, 2023 at 11:59pm PT, so save your seat now!
 
 ### **OpenInfra Summit Pricing**
 

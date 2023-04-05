@@ -39,7 +39,7 @@ const TemplateWrapper = ({ children, location, marketing, summit, favicons }) =>
     <div id="container">
       <Helmet>
         <html lang="en" />
-        <title>{`${summit.name}`}</title>
+        <title>{`${summit.name}`} - Register Now!</title>
         <meta name="description" content={description} />
         {favicons?.favicon180 &&
           <link

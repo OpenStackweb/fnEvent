@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: 'Virtual Event',
-    description: 'Virtual event',
+    title: 'OpenInfra Summit Vancouver 2023',
+    description: 'The OpenInfra Summit + PTG Vancouver is an opportunity to work alongside the individuals who construct and manage open-source systems utilizing Linux, OpenStack, Kubernetes, and over 30 additional technologies.',
   },
   plugins: [
     'gatsby-plugin-react-helmet',

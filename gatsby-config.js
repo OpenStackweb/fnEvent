@@ -6,8 +6,8 @@ const GeneralSettings = require('./src/content/settings.json');
 
 module.exports = {
   siteMetadata: {
-    title: `${GeneralSettings?.siteMetadata?.title || process.env.GATSBY_METADATA_TITLE || 'Event Site'}`,
-    description: `${GeneralSettings?.siteMetadata?.description || process.env.GATSBY_METADATA_DESCRIPTION || 'Event Site'}`,
+    title: 'OpenInfra Summit Vancouver 2023',
+    description: 'The OpenInfra Summit + PTG Vancouver is an opportunity to work alongside the individuals who construct and manage open-source systems utilizing Linux, OpenStack, Kubernetes, and over 30 additional technologies.',
   },
   plugins: [
     "gatsby-plugin-root-import",

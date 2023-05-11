@@ -7,7 +7,7 @@ export const getDefaultLocation = (eventRedirect, hasVirtualAccess = false) => {
 
 export const formatThirdPartyProviders = (providersArray) => {
     const providers = [
-        { button_color: '#082238', provider_label: 'Continue with FNid', provider_param: '', provider_logo: '../img/logo_fn.svg', provider_logo_size: 35 },
+        { button_color: '#082238', provider_label: 'Continue with OpenInfra ID', provider_param: '', provider_logo: '../img/logo_oif.png', provider_logo_size: 25 },
     ];
 
     const thirdPartyProviders = [
@@ -16,5 +16,5 @@ export const formatThirdPartyProviders = (providersArray) => {
         { button_color: '#000000', provider_label: 'Continue with Apple', provider_param: 'apple', provider_logo: '../img/third-party-idp/logo_apple.svg', provider_logo_size: 19 }
     ];
 
-    return [...providers, ...thirdPartyProviders.filter(p => providersArray && providersArray.includes(p.provider_param))];
+    return [...providers, ...thirdPartyProviders.filter(p => providersArray.includes(p.provider_param))];
 };

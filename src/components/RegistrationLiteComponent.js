@@ -1,37 +1,46 @@
 import React, { useEffect, useState } from "react"
+import * as Sentry from "@sentry/react";
 import { navigate, withPrefix } from "gatsby"
 import { connect } from "react-redux";
 import URI from "urijs"
 // these two libraries are client-side only
 import RegistrationLiteWidget from 'summit-registration-lite/dist';
 import FragmentParser from "openstack-uicore-foundation/lib/utils/fragment-parser";
-import { doLogin, passwordlessStart, getAccessToken } from 'openstack-uicore-foundation/lib/security/methods'
-import { doLogout } from 'openstack-uicore-foundation/lib/security/actions'
-import { getEnvVariable, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID, REGISTRATION_BASE_URL } from '../utils/envVariables'
-import { getUserProfile, setPasswordlessLogin, setUserOrder, checkOrderData } from "../actions/user-actions";
-import { getThirdPartyProviders } from "../actions/base-actions";
+import {doLogin, passwordlessStart, getAccessToken} from 'openstack-uicore-foundation/lib/security/methods'
+import {doLogout} from 'openstack-uicore-foundation/lib/security/actions'
+import {getEnvVariable, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID, REGISTRATION_BASE_URL, SUPPORT_EMAIL} from '../utils/envVariables'
+import {getUserProfile, setPasswordlessLogin, setUserOrder, checkOrderData} from "../actions/user-actions";
+import {getThirdPartyProviders} from "../actions/base-actions";
+import {formatThirdPartyProviders} from "../utils/loginUtils";
 import 'summit-registration-lite/dist/index.css';
 import styles from '../styles/marketing-hero.module.scss'
 import Swal from "sweetalert2";
+import {checkRequireExtraQuestionsByAttendee} from "../actions/user-actions";
+import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
+
+import { SentryFallbackFunction } from "./SentryErrorComponent";
+import { getExtraQuestions } from "../actions/summit-actions";
 
 const RegistrationLiteComponent = ({
-    registrationProfile,
-    userProfile,
-    attendee,
-    getThirdPartyProviders,
-    thirdPartyProviders,
-    getUserProfile,
-    setPasswordlessLogin,
-    setUserOrder,
-    checkOrderData,
-    loadingProfile,
-    loadingIDP,
-    summit,
-    colorSettings,
-    siteSettings,
-    allowsNativeAuth,
-    allowsOtpAuth,
-}) => {
+                                       registrationProfile,
+                                       userProfile,
+                                       attendee,
+                                       getThirdPartyProviders,
+                                       thirdPartyProviders,
+                                       getUserProfile,
+                                       setPasswordlessLogin,
+                                       setUserOrder,
+                                       checkOrderData,
+                                       loadingProfile,
+                                       loadingIDP,
+                                       summit,
+                                       colorSettings,
+                                       siteSettings,
+                                       allowsNativeAuth,
+                                       allowsOtpAuth,
+                                       checkRequireExtraQuestionsByAttendee,
+                                       getExtraQuestions,
+                                   }) => {
     const [isActive, setIsActive] = useState(false);
     const [initialEmailValue, setInitialEmailValue] = useState('');
 
@@ -39,7 +48,7 @@ const RegistrationLiteComponent = ({
         const fragmentParser = new FragmentParser();
         setIsActive(fragmentParser.getParam('registration'));
         const paramInitialEmailValue = fragmentParser.getParam('email');
-        if(paramInitialEmailValue)
+        if (paramInitialEmailValue)
             setInitialEmailValue(paramInitialEmailValue);
     }, []);
 
@@ -65,20 +74,6 @@ const RegistrationLiteComponent = ({
         });
     }
 
-    const formatThirdPartyProviders = (providersArray) => {
-        const providers = [
-            { button_color: '#082238', provider_label: 'Continue with OpenInfra ID', provider_param: '', provider_logo: '../img/logo_oif.png', provider_logo_size: 25 },
-        ];
-
-        const thirdPartyProviders = [
-            { button_color: '#1877F2', provider_label: 'Continue with Facebook', provider_param: 'facebook', provider_logo: '../img/third-party-idp/logo_facebook.svg', provider_logo_size: 22 },
-            { button_color: '#0A66C2', provider_label: 'Sign in with LinkedIn', provider_param: 'linkedin', provider_logo: '../img/third-party-idp/logo_linkedin.svg', provider_logo_size: 21 },
-            { button_color: '#000000', provider_label: 'Continue with Apple', provider_param: 'apple', provider_logo: '../img/third-party-idp/logo_apple.svg', provider_logo_size: 19 }
-        ];
-
-        return [...providers, ...thirdPartyProviders.filter(p => providersArray.includes(p.provider_param))];
-    };
-
     const getPasswordlessCode = (email) => {
         const params = {
             connection: "email",
@@ -96,9 +91,6 @@ const RegistrationLiteComponent = ({
             otp: code,
             email
         };
-
-        navigate('/#registration=1');
-
         return setPasswordlessLogin(params);
     };
 
@@ -112,44 +104,42 @@ const RegistrationLiteComponent = ({
         loading: loadingProfile || loadingIDP,
         // only show info if its not a recent purchase
         ticketOwned: userProfile?.summit_tickets?.length > 0,
+        hasVirtualAccessLevel: userHasAccessLevel(userProfile?.summit_tickets, VirtualAccessLevel),
         ownedTickets: attendee?.ticket_types || [],
         authUser: (provider) => onClickLogin(provider),
         getPasswordlessCode: getPasswordlessCode,
-        loginWithCode: async (code, email) => await loginPasswordless(code, email),
+        loginWithCode:  (code, email) =>  loginPasswordless(code, email).then( () =>  navigate('/#registration=1')),
         getAccessToken: getAccessToken,
-        closeWidget: async () => {
+        closeWidget:  () => {
             // reload user profile
             // NOTE: We need to catch the rejected promise here, or else the app will crash (locally, at least).
-            try {
-                await getUserProfile();
-            } catch (e) {
-                console.error(e);
-            }
-            setIsActive(false)
+            getUserProfile();
+            setIsActive(false);
         },
-        goToExtraQuestions: async () => {
-            // reload user profile
-            // NOTE: We need to catch the rejected promise here, or else the app will crash (locally, at least).
-            try {
-                await getUserProfile();
-            } catch (e) {
-                console.error(e);
-            }
-            navigate('/a/extra-questions')
+        goToExtraQuestions: () => {
+            navigate('/a/extra-questions');
         },
         goToEvent: () => navigate('/a/'),
         goToRegistration: () => navigate(`${getEnvVariable(REGISTRATION_BASE_URL)}/a/${summit.slug}`),
+        goToMyOrders: () => navigate('/a/my-tickets'),
+        completedExtraQuestions: async (order) => {
+            const currentUserTicket = order?.tickets.find(t => t?.owner?.email == userProfile?.email);
+            const currentAttendee = attendee ? attendee : (currentUserTicket ? currentUserTicket?.owner : null);
+            if(!currentAttendee) return true;
+            await getExtraQuestions();
+            return checkRequireExtraQuestionsByAttendee(currentAttendee);
+        },
         onPurchaseComplete: (order) => {
-            // check if it's necesary to update profile
-            setUserOrder(order).then(_ => checkOrderData(order));
+            // check if it's necessary to update profile
+            setUserOrder(order).then(()=> checkOrderData(order));
         },
         inPersonDisclaimer: siteSettings?.registration_in_person_disclaimer,
         handleCompanyError: () => handleCompanyError,
         allowsNativeAuth: allowsNativeAuth,
         allowsOtpAuth: allowsOtpAuth,
         stripeOptions: {
-            fonts: [{ cssSrc: withPrefix('/fonts/fonts.css') }],
-            style: { base: { fontFamily: `'Nunito Sans', sans-serif`, fontWeight: 300 } }
+            fonts: [{cssSrc: withPrefix('/fonts/fonts.css')}],
+            style: {base: {fontFamily: `'Nunito Sans', sans-serif`, fontWeight: 300}}
         },
         loginInitialEmailInputValue: initialEmailValue,
         authErrorCallback: (error) => {
@@ -158,29 +148,37 @@ const RegistrationLiteComponent = ({
             return navigate('/auth/logout',
                 {
                     state: {
-                        backUrl: '/'+fragment
+                        backUrl: '/' + fragment
                     }
                 });
-        }
+        },
+        allowPromoCodes: siteSettings?.REG_LITE_ALLOW_PROMO_CODES,
+        companyInputPlaceholder: siteSettings?.REG_LITE_COMPANY_INPUT_PLACEHOLDER,
+        companyDDLPlaceholder: siteSettings?.REG_LITE_COMPANY_DDL_PLACEHOLDER,
+        supportEmail:getEnvVariable(SUPPORT_EMAIL),
     };
 
-    const { registerButton } = siteSettings.heroBanner.buttons;
+    const {registerButton} = siteSettings.heroBanner.buttons;
 
     return (
         <>
-            <button className={`${styles.button} button is-large`} onClick={() => setIsActive(true)}>
-                <i className={`fa fa-2x fa-edit icon is-large`} />
-                <b>{registerButton.text}</b>
-            </button>
-
+            {registerButton.display &&
+                <button className={`${styles.button} button is-large`} disabled={isActive}
+                        onClick={() => setIsActive(true)}>
+                    <i className={`fa fa-2x fa-edit icon is-large`}/>
+                    <b>{registerButton.text}</b>
+                </button>
+            }
             <div>
-                {isActive && <RegistrationLiteWidget {...widgetProps} />}
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Registration Lite'})}>
+                    {isActive && <RegistrationLiteWidget {...widgetProps} />}
+                </Sentry.ErrorBoundary>
             </div>
         </>
     )
 };
 
-const mapStateToProps = ({ userState, summitState, settingState }) => {
+const mapStateToProps = ({userState, summitState, settingState}) => {
     return ({
         registrationProfile: userState.idpProfile,
         userProfile: userState.userProfile,
@@ -201,5 +199,7 @@ export default connect(mapStateToProps, {
     getUserProfile,
     setPasswordlessLogin,
     setUserOrder,
-    checkOrderData
+    checkOrderData,
+    checkRequireExtraQuestionsByAttendee,
+    getExtraQuestions,
 })(RegistrationLiteComponent)

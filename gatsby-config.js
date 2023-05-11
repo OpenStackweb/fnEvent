@@ -1,13 +1,17 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
+const GeneralSettings = require('./src/content/settings.json');
+
 module.exports = {
   siteMetadata: {
     title: 'OpenInfra Summit Vancouver 2023',
     description: 'The OpenInfra Summit + PTG Vancouver is an opportunity to work alongside the individuals who construct and manage open-source systems utilizing Linux, OpenStack, Kubernetes, and over 30 additional technologies.',
   },
   plugins: [
+    "gatsby-plugin-root-import",
     'gatsby-plugin-react-helmet',
-    {
-      resolve: "gatsby-plugin-no-sourcemaps"
-    } ,
     {
       /**
        * Gatsby v4 uses ES Modules for importing cssModules by default.
@@ -114,8 +118,7 @@ module.exports = {
           },
         ],
       },
-    },
-
+    },    
     /**
      * This plugin has been deprecated.
      * Gatsby now natively supports client paths.

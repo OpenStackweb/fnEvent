@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { CSSTransition } from "react-transition-group";
@@ -9,6 +9,7 @@ import { Input } from 'openstack-uicore-foundation/lib/components'
 import { changeTicketAttendee } from "../../store/actions/ticket-actions";
 import { ConfirmPopup, CONFIRM_POPUP_CASE } from "../ConfirmPopup/ConfirmPopup";
 import { getSummitFormattedReassignDate } from "../../util";
+import { useTicketAssignedContext } from "../../context/TicketAssignedContext";
 
 const initialValues = {
     attendee_email: '',
@@ -25,6 +26,9 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const [newAttendeeEmail, setNewAttendeeEmail] = useState('');
     const [showSaveMessage, setShowSaveMessage] = useState(false);
+    const [message, setMessage] = useState('')
+
+    const { onTicketAssignChange } = useTicketAssignedContext();
 
     const isUserTicketOwner = userProfile.email === ticket.owner?.email;
     const isTicketPrinted = ticket.badge?.printed_times > 0 ? true : false
@@ -58,9 +62,14 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
 
         dispatch(changeTicketAttendee({
             ticket,
+            message,            
             order,
             data: { attendee_email: newAttendeeEmail }
-        })).then(() => toggleSaveMessage());
+        })).then((updatedTicket) => {
+            onTicketAssignChange(updatedTicket);
+            toggleSaveMessage();
+            setMessage('');
+        });
     };
 
     const handleConfirmReject = () => {
@@ -119,6 +128,12 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
                                 {` (${t("ticket_popup.reassign_before")} ${getSummitFormattedReassignDate(summit)})`}
                             </p>
                             <span>{t("ticket_popup.reassign_enter_email")}</span>
+
+                            <p>
+                                <label>{t("ticket_popup.notify_message")} </label> {t("ticket_popup.notify_message_condition")}
+                                <br />
+                                <textarea value={message} rows="4" onChange={(e) => setMessage(e.target.value)} style={{width: '80%', padding: 5}} />
+                            </p>
 
                             <Input
                                 id="attendee_email"

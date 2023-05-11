@@ -49,6 +49,7 @@ export const UNCAST_PRESENTATION_VOTE_REQUEST = 'UNCAST_PRESENTATION_VOTE_REQUES
 export const UNCAST_PRESENTATION_VOTE_RESPONSE = 'UNCAST_PRESENTATION_VOTE_RESPONSE';
 export const TOGGLE_PRESENTATION_VOTE = 'TOGGLE_PRESENTATION_VOTE';
 export const GET_EXTRA_QUESTIONS = 'GET_EXTRA_QUESTIONS';
+export const TICKET_OWNER_CHANGED = 'TICKET_OWNER_CHANGED';
 
 // shortName is the unique identifier assigned to a Disqus site.
 export const getDisqusSSO = (shortName) => async (dispatch, getState) => {
@@ -84,7 +85,6 @@ export const getUserProfile = () => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -93,17 +93,14 @@ export const getUserProfile = () => async (dispatch) => {
     expand: 'groups,summit_tickets,summit_tickets.owner,summit_tickets.owner.presentation_votes,summit_tickets.owner.extra_questions,summit_tickets.badge,summit_tickets.badge.features,summit_tickets.badge.type, summit_tickets.badge.type.access_levels,summit_tickets.badge.type.features,favorite_summit_events,feedback,schedule_summit_events,rsvp,rsvp.answers'
   };
 
-  dispatch(startLoading());
-  dispatch(createAction(START_LOADING_PROFILE)());
   return getRequest(
-    null,
+    createAction(START_LOADING_PROFILE),
     createAction(GET_USER_PROFILE),
     `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/members/me`,
     customErrorHandler
   )(params)(dispatch).then(() => {
-    return dispatch(getIDPProfile()).then(() => {
-      return dispatch(getScheduleSyncLink()).then(() => dispatch(createAction(STOP_LOADING_PROFILE)()))
-    });
+    dispatch(createAction(STOP_LOADING_PROFILE)());
+    return dispatch(getIDPProfile()).then(() => dispatch(getScheduleSyncLink()));
   }).catch((e) => {
     console.log('ERROR: ', e);
     dispatch(createAction(STOP_LOADING_PROFILE)());
@@ -119,11 +116,8 @@ export const getIDPProfile = () => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
-
-  dispatch(createAction(START_LOADING_IDP_PROFILE)());
 
   let params = {
     access_token: accessToken,
@@ -131,7 +125,7 @@ export const getIDPProfile = () => async (dispatch) => {
   };
 
   return getRequest(
-    null,
+    createAction(START_LOADING_IDP_PROFILE),
     createAction(GET_IDP_PROFILE),
     `${window.IDP_BASE_URL}/api/v1/users/me`,
     customErrorHandler
@@ -146,18 +140,21 @@ export const getIDPProfile = () => async (dispatch) => {
 }
 
 export const requireExtraQuestions = () => (dispatch, getState) => {
-
-  const { summitState : { summit, extra_questions }} = getState();
   const { userState: { userProfile } } = getState();
 
   const owner = userProfile?.summit_tickets[0]?.owner || null;
   // if user does not have an attendee then we dont require extra questions
   if (!owner) return false;
-  if (!owner.first_name || !owner.last_name || !owner.company || !owner.email) return true;
-  const disclaimer = summit.registration_disclaimer_mandatory ? owner.disclaimer_accepted : true;
+  return dispatch(checkRequireExtraQuestionsByAttendee(owner));
+}
+
+export const checkRequireExtraQuestionsByAttendee = (attendee) => (dispatch, getState) => {
+  const { summitState : { summit, extra_questions }} = getState();
+  if (!attendee.first_name || !attendee.last_name || !attendee.company || !attendee.email) return true;
+  const disclaimer = summit.registration_disclaimer_mandatory ? attendee.disclaimer_accepted : true;
   if (!disclaimer) return true;
-  if (extra_questions.length > 0) {
-    const qs = new QuestionsSet(extra_questions, owner.extra_questions || []);
+  if (extra_questions?.length > 0) {
+    const qs = new QuestionsSet(extra_questions, attendee.extra_questions || []);
     return !qs.completed();
   }
   return false;
@@ -170,7 +167,6 @@ export const scanBadge = (sponsorId) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -254,7 +250,6 @@ export const castPresentationVote = (presentation) => async (dispatch, getState)
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -309,7 +304,6 @@ export const uncastPresentationVote = (presentation) => async (dispatch, getStat
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -349,7 +343,6 @@ export const updateProfilePicture = (pic) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -383,7 +376,6 @@ export const updateProfile = (profile) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -416,17 +408,14 @@ export const updatePassword = (password) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
   let params = {
     access_token: accessToken,
   };
 
-  dispatch(createAction(START_LOADING_IDP_PROFILE)());
-
   putRequest(
-    null,
+    createAction(START_LOADING_IDP_PROFILE),
     createAction(UPDATE_PASSWORD),
     `${window.IDP_BASE_URL}/api/v1/users/me`,
     password,
@@ -445,25 +434,17 @@ export const updatePassword = (password) => async (dispatch) => {
     });
 }
 
-export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, getState) => {
+export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
 
-  const { userState: { userProfile: { summit_tickets } } } = getState();
+  const { userState: { userProfile: { summit_tickets } } } = getState();  
 
-  const extraQuestionsAnswers = extra_questions.map(q => {
-    return { question_id: q.id, answer: `${q.value}` }
-  })
+  const normalizedEntity = {...values};
 
-  let normalizedEntity = {
-    attendee_email: owner.email,
-    attendee_first_name: owner.first_name,
-    attendee_last_name: owner.last_name,
-    attendee_company: owner.company,
-    disclaimer_accepted: owner.disclaimer,
-
-  };
-
-  if( extraQuestionsAnswers.length > 0){
-    normalizedEntity['extra_questions'] = extraQuestionsAnswers;
+  if (!values.attendee_company.id) {
+    normalizedEntity['attendee_company'] = values.attendee_company.name;
+  } else {
+    delete(normalizedEntity['attendee_company']);
+    normalizedEntity['attendee_company_id'] = values.attendee_company.id;
   }
 
   let accessToken;
@@ -471,16 +452,15 @@ export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, g
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
-  }
-
-  dispatch(startLoading());
+  }  
 
   let params = {
     access_token: accessToken,
     expand: 'owner, owner.extra_questions'
   };
+
+  dispatch(startLoading());
 
   return putRequest(
     null,
@@ -489,6 +469,7 @@ export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, g
     normalizedEntity,
     customErrorHandler
   )(params)(dispatch).then(() => {
+    dispatch(stopLoading());
     Swal.fire('Success', "Attendee saved successfully", "success");
     dispatch(getUserProfile());
     navigate('/')
@@ -500,12 +481,17 @@ export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, g
   });
 };
 
+/**
+ * @param params
+ * @returns {function(*, *): *}
+ */
 export const setPasswordlessLogin = (params) => (dispatch, getState) => {
   return dispatch(passwordlessLogin(params))
     .then((res) => {
-      dispatch(getUserProfile());
-    }, (err) => {
-      return Promise.resolve(err)
+      return dispatch(getUserProfile()).then(() => res);
+    }).catch((e) => {
+      console.log(e);
+      return Promise.reject(e);
     })
 }
 
@@ -516,7 +502,6 @@ export const getScheduleSyncLink = () => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -557,6 +542,10 @@ export const checkOrderData = (order) => (dispatch, getState) => {
   }
 }
 
+export const ticketOwnerChange = (ticket) => async (dispatch) => {
+  return dispatch(createAction(TICKET_OWNER_CHANGED)(ticket));
+}
+
 /**
  * Peform virtual checking at show time for the current attendee
  * @param attendee
@@ -569,7 +558,6 @@ export const doVirtualCheckIn = (attendee) => async (dispatch, getState) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 

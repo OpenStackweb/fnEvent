@@ -1,9 +1,6 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Router, Location } from "@reach/router"
 import { connect } from 'react-redux'
-import { syncData } from '../../actions/base-actions';
-import settings from '../../content/settings';
-
 import HomePage from "../../templates/home-page"
 import EventPage from "../../templates/event-page"
 import PostersPage from "../../templates/posters-page";
@@ -19,12 +16,12 @@ import WithBadgeRoute from "../../routes/WithBadgeRoute";
 import PosterDetailPage from "../../templates/poster-detail-page";
 import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
+import withRealTimeUpdates from "../../utils/real_time_updates/withRealTimeUpdates";
+import withFeedsWorker from "../../utils/withFeedsWorker";
+import Link from "../../components/Link";
 
-const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick = true }) => {
 
-  useEffect(() => {
-    syncData();
-  }, [syncData]);
+const App = ({ isLoggedUser, user, summit_phase, allowClick = true }) => {
 
   return (
     <Location>
@@ -34,10 +31,14 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
             path="/schedule"
             location={location}
             schedKey="schedule-main"
-            scheduleProps={{ subtitle: <a href="/a/my-schedule">Show My Schedule</a> }}
+            scheduleProps={{ subtitle:
+              <Link to={'/a/my-schedule'}>Show My Schedule</Link>
+            }}
+            allowClick={allowClick}
           />
           <WithAuthRoute path="/" isLoggedIn={isLoggedUser} location={location}>
             <MyTicketsPage path="/my-tickets" isLoggedIn={isLoggedUser} user={user} location={location} />
+            <FullProfilePage path="/profile" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
             <WithTicketRoute path="/extra-questions" location={location}>
                 <ExtraQuestionsPage path="/" isLoggedIn={isLoggedUser} user={user} location={location} />
             </WithTicketRoute>
@@ -51,11 +52,12 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
                   summit_phase={summit_phase}
                   isLoggedIn={isLoggedUser}
                   user={user}
-                  scheduleProps={{ title: 'My Schedule', showSync: true, subtitle: <a href="/a/schedule">Show Schedule</a> }}
+                  scheduleProps={{ title: 'My Schedule', showSync: true, subtitle:
+                        <Link to={'/a/schedule'}>Show Schedule</Link>
+                  }}
                   schedKey="my-schedule-main"
                   allowClick={allowClick}
                 />
-                <FullProfilePage path="/profile" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
                 <ShowOpenRoute path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
                   <WithBadgeRoute path="/event/:eventId" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
                     <EventPage path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
@@ -72,12 +74,15 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
   )
 };
 
-const mapStateToProps = ({ loggedUserState, userState, clockState, settingState }) => ({
+const mapStateToProps = ({ loggedUserState, userState, clockState, settingState, summitState }) => ({
   isLoggedUser: loggedUserState.isLoggedUser,
   summit_phase: clockState.summit_phase,
   user: userState,
+  summitId: summitState?.summit?.id,
   lastBuild: settingState.lastBuild,
-  allowClick: settingState.widgets.schedule.allowClick
+  summit: summitState?.summit,
+  allowClick: settingState?.widgets?.schedule?.allowClick
 });
 
-export default connect(mapStateToProps, { syncData })(App)
+export default connect(mapStateToProps, {
+})(withFeedsWorker(withRealTimeUpdates(App)))

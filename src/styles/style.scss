@@ -117,7 +117,6 @@ footer {
 }
 
 #content-wrapper {
-  padding-bottom: 3rem;
   min-height: 95vh;
 }
 
@@ -489,10 +488,6 @@ div.event-feedback-container {
     width: auto;
   }
 
-  #marketing-columns {
-    margin-bottom: 4rem;
-  }
-
   #marketing-slider {
     .slick-track {
       height: 250px;
@@ -685,10 +680,6 @@ a[href*="support@fntech.com"] {
 
 .summit-registration-lite div[class*="passwordlessWrapper"] div[class*="innerWrapper"] img {
   display: none;
-}
-
-span.footer___FL9TW {
-  color: #fff;
 }
 
 .modal.is-active {

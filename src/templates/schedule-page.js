@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import { pickBy } from "lodash";
 import { navigate } from "gatsby";
-import { deepLinkToEvent } from "../actions/schedule-actions";
+import {deepLinkToEvent} from "../actions/schedule-actions";
 import Layout from "../components/Layout";
 import FullSchedule from "../components/FullSchedule";
 import ScheduleFilters from "../components/ScheduleFilters";
@@ -15,10 +15,9 @@ import NotFoundPage from "../pages/404";
 import withScheduleData from '../utils/withScheduleData'
 import styles from "../styles/full-schedule.module.scss";
 
-const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, location, colorSettings, updateFilter, scheduleProps, schedKey, allowClick }) => {
+const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, location, colorSettings, updateFilter, scheduleProps, schedKey, allowClick, lastDataSync, clearFilters, callAction }) => {
 
   const [showFilters, setShowfilters] = useState(false);
-
   const filtersWrapperRef = useRef(null);
   const { key, events, allEvents, filters, view, timezone, colorSource } = scheduleState || {};
 
@@ -51,7 +50,16 @@ const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, locati
     allEvents,
     filters: pickBy(filters, (value) => value.enabled),
     triggerAction: (action, payload) => {
-      updateFilter(schedKey, payload);
+      switch (action) {
+        case "UPDATE_FILTER": {
+          return updateFilter(schedKey, payload);
+        }
+        case "CLEAR_FILTERS" : {
+          return clearFilters(schedKey);
+        }
+        default:
+          return callAction(schedKey, action, payload);
+      }
     },
     marketingSettings: colorSettings,
     colorSource,
@@ -83,7 +91,9 @@ const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, locati
       <div className={`container ${styles.container}`}>
         <div className={`${styles.wrapper} ${showFilters ? styles.showFilters : ""}`}>
           <div className={styles.scheduleWrapper}>
-            <FullSchedule {...schedProps} />
+            <FullSchedule {...schedProps}
+                          key={`fullschedule_${lastDataSync}`}
+            />
           </div>
           <div ref={filtersWrapperRef} className={styles.filterWrapper}>
             <ScheduleFilters {...filterProps} />

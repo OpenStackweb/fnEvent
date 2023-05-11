@@ -38,6 +38,15 @@ export const GET_TICKETS_BY_ORDER = 'GET_TICKETS_BY_ORDER';
 export const GET_ORDER_TICKET_DETAILS = 'GET_ORDER_TICKET_DETAILS';
 export const GET_TICKET_DETAILS = 'GET_TICKET_DETAILS';
 
+export const TICKET_ATTENDEE_KEYS = {
+    email: 'attendee_email',
+    firstName: 'attendee_first_name',
+    lastName: 'attendee_last_name',
+    company: 'attendee_company',
+    disclaimerAccepted: 'disclaimer_accepted',
+    extraQuestions: 'extra_questions'
+}
+
 const customFetchErrorHandler = (response) => {
     let code = response.status;
     let msg = response.statusText;
@@ -68,11 +77,13 @@ const customFetchErrorHandler = (response) => {
 export const getUserTickets = ({ page = 1, perPage = 5 }) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
     const { userState: { userProfile }, summitState: { summit } } = getState();
 
-    if (!summit) return
+    if (!summit) return Promise.reject();
 
     const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
 
-    if (!accessToken) return;
+    if (!accessToken) return Promise.reject();
+
+    if (!userProfile.id) return Promise.reject();
 
     dispatch(startLoading());
 
@@ -166,6 +177,7 @@ export const getTicketsByOrder = ({ orderId, page = 1, perPage = 5 }) => async (
 
 export const assignAttendee = ({
     ticket,
+    message,
     order,
     context,
     data: {
@@ -191,19 +203,20 @@ export const assignAttendee = ({
 
     const params = {
         access_token: accessToken,
-        expand: 'owner, owner.extra_questions'
+        expand: 'owner,owner.extra_questions,badge,badge.type,badge.type.access_levels'
     };
 
     const normalizedEntity =
         (!attendee_first_name & !attendee_last_name)
-            ? { attendee_email }
+            ? { attendee_email, message }
             : {
                 attendee_email,
                 attendee_first_name,
                 attendee_last_name,
                 attendee_company,
                 extra_questions,
-                disclaimer_accepted
+                disclaimer_accepted,
+                message
             }
 
     const orderId = reassignOrderId ? reassignOrderId : order.id;
@@ -214,13 +227,14 @@ export const assignAttendee = ({
         `${apiBaseUrl}/api/v1/summits/all/orders/${orderId}/tickets/${ticket.id}/attendee`,
         normalizedEntity,
         authErrorHandler
-    )(params)(dispatch).then(() => {
+    )(params)(dispatch).then((newTicket) => {
         if (reassignOrderId && context === 'ticket-list') {
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
             dispatch(getUserOrders({ page: orderPage }));
             dispatch(getTicketsByOrder({ orderId, page: orderTicketsCurrentPage }));
         }
+        return newTicket;
     }).catch(e => {
         dispatch(stopLoading());
         return (e);
@@ -248,7 +262,7 @@ export const editOwnedTicket = ({
     const {
         userState: { userProfile },
         orderState: { current_page: orderPage },
-        ticketState: { current_page: ticketPage }
+        ticketState: { current_page: ticketPage, orderTickets: { current_page : orderTicketsCurrentPage }  }
     } = getState();
 
     const params = {
@@ -285,7 +299,6 @@ export const editOwnedTicket = ({
         normalizedEntity,
         authErrorHandler
     )(params)(dispatch).then(async () => {
-        dispatch(startLoading());
         // email should match ( only update my profile is ticket belongs to me!)
         // Check if there's changes in the ticket data to update the profile
         if (userProfile.email == attendee_email && (
@@ -309,7 +322,9 @@ export const editOwnedTicket = ({
         if (context === 'ticket-list') {
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
-            dispatch(getUserOrders({ page: orderPage }))
+            dispatch(getUserOrders({ page: orderPage })).then(() => 
+                dispatch(getTicketsByOrder({ orderId: ticket.order_id, page: orderTicketsCurrentPage }))
+            );
         }
 
         dispatch(stopLoading());
@@ -350,6 +365,7 @@ export const resendNotification = (ticket) => async (dispatch, getState, { getAc
 
 export const changeTicketAttendee = ({
     ticket,
+    message,
     order,
     context,
     data: { attendee_email }
@@ -374,8 +390,9 @@ export const changeTicketAttendee = ({
         {},
         authErrorHandler
     )(params)(dispatch).then(() => {
-        dispatch(assignAttendee({
+        return dispatch(assignAttendee({
             ticket,
+            message,
             order,
             context,
             data: {
@@ -421,13 +438,14 @@ export const removeAttendee = ({ticket, context}) => async (dispatch, getState, 
         `${apiBaseUrl}/api/v1/summits/all/orders/${orderId}/tickets/${ticket.id}/attendee`,
         {},
         authErrorHandler
-    )(params)(dispatch).then(() => {
+    )(params)(dispatch).then((removedTicket) => {
         if (context === 'ticket-list') {
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
             dispatch(getUserOrders({ page: orderPage }));
             dispatch(getTicketsByOrder({ orderId, page: orderTicketsCurrentPage }));
         }
+        return removedTicket;
         }).catch((e) => {
             console.log('error', e)
             dispatch(stopLoading());

@@ -103,8 +103,6 @@ export const HomePageTemplate = class extends React.Component {
                         </div>
                         <div className="column is-one-quarter pb-6">
                             <h2><b>My Info</b></h2>
-                            <AccessTracker/>
-                            <AttendeesWidget user={user}/>
                             <LiteScheduleComponent
                                 id={`home_page_lite_schedule_${lastDataSync}`}
                                 key={`home_page_lite_schedule_${lastDataSync}`}

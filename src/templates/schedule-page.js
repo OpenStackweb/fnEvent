@@ -102,7 +102,6 @@ const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, locati
         </div>
       </div>
       <AttendanceTrackerComponent />
-      <AccessTracker />
       <PageScrollInspector scrollDirectionChanged={onScrollDirectionChange} bottomReached={onPageBottomReached} />
     </Layout>
   );

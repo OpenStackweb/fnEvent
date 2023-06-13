@@ -13,7 +13,6 @@ const ExpoHallPage = ({ location, imageHeader }) => {
   return (
     <Layout location={location}>
       <AttendanceTrackerComponent />
-      <AccessTracker />
         <section className="hero is-large sponsors-header" style={{ backgroundImage: `url(${imageHeader.file})` }}>
           <div className="hero-body">
             <div className={styles.heroContainer}>

@@ -22,6 +22,7 @@ import EventFeedbackComponent from '../components/EventFeedbackComponent'
 import {PHASES} from '../utils/phasesUtils';
 import { getEventById } from "../actions/event-actions";
 import URI from "urijs"
+import {getEnvVariable, SUPABASE_KEY, SUPABASE_URL} from "../utils/envVariables";
 
 /**
  * @type {EventPageTemplate}
@@ -205,8 +206,6 @@ export const EventPageTemplate = class extends React.Component {
                         </div>
                         <div className="column px-0 py-0 is-one-quarter is-full-mobile">
                             <DocumentsComponent event={event}/>
-                            <AccessTracker/>
-                            <AttendeesWidget user={user} event={event}/>
                             <AdvertiseComponent section="event" column="right"/>
                         </div>
                     </div>

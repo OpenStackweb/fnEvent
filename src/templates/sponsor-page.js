@@ -97,7 +97,6 @@ export const SponsorPageTemplate = class extends React.Component {
                 sourceName="SPONSOR"
                 sourceId={sponsor.sponsorId}
             />
-            <AccessTracker />
             <SponsorHeader sponsor={sponsor} tier={tier} scanBadge={() => this.onBadgeScan()} />
             <SponsorNavigation currentSponsor={sponsor} sponsors={sponsors} />
             <section className={`section px-0 ${tier.sponsorPage.sponsorTemplate === 'big-header' ? 'pt-5' : 'pt-0'} pb-0`}>

@@ -11,16 +11,6 @@
       "display": false
     },
     {
-      "requiresAuth": false,
-      "showOnlyAtShowTime": false,
-      "pageRestriction": [
-        "ANY"
-      ],
-      "title": "Schedule",
-      "link": "https://vancouver2023.openinfra.dev/a/schedule",
-      "display": true
-    },
-    {
       "title": "My Tickets",
       "link": "/a/my-tickets",
       "display": true,
@@ -46,27 +36,6 @@
       "pageRestriction": [
         "ANY"
       ]
-    },
-    {
-      "requiresAuth": false,
-      "showOnlyAtShowTime": false,
-      "pageRestriction": [
-        "ANY"
-      ],
-      "link": "https://openinfra.dev/summit/vancouver-2023/summit-onsite-safety/",
-      "title": "Health & Safety",
-      "display": true
-    },
-    {
-      "requiresAuth": false,
-      "showOnlyAtShowTime": false,
-      "pageRestriction": [
-        "ACTIVITY",
-        "SHOW"
-      ],
-      "title": "Register Now",
-      "link": "https://vancouver2023.openinfra.dev/#registration=1",
-      "display": true
     }
   ]
 }

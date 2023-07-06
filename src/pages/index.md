@@ -4,36 +4,52 @@ templateKey: marketing-page
 
 ## About this event
 
-**Please Note: All OpenInfra Summit attendees are required to be fully vaccinated against the COVID-19 virus and face masks (covering your mouth and nose) are mandatory for all attendees. Please visit our [Health & Safety guidelines](https://openinfra.dev/summit/vancouver-2023/summit-onsite-safety/) for additional details and protocols.**
+The second Project Teams Gathering of 2023 will be held virtually October 23-27.
 
-<a href="https://openinfra.dev/summit/" target="_blank">The OpenInfra Summit</a> is back and headed to Vancouver, British Columbia!
+The Project Teams Gathering (PTG) is an event organized by the OpenInfra Foundation. It provides meeting facilities allowing the various technical community groups working with OpenInfra (user workgroups, development teams, operators, SIGs) to meet in-person, exchange and get work done in a productive setting. It lets those various groups discuss their priorities for the upcoming cycle, assign work items, iterate quickly on solutions for complex problems, and make fast progress on critical issues. The co-location of those various meetings, combined with the dynamic scheduling of the event, make it easy to get specific people in the same room to discuss a specific topic, or participate in multiple team meetings. Evenings allow for relationship building and problem sharing.
 
-Join the global community June 13-15, 2023. Collaborate directly with the people building and running open source infrastructure using Linux, OpenStack, Kubernetes and 30+ other technologies.
+SCHEDULE
 
-**The OpenInfra Summit will be a limited-capacity, sellout event**. The ticket prices will increase on May 5th, 2023 at 11:59pm PT, so save your seat now!
+The schedule is not set yet, but when it becomes available, you will be able to see it via the PTGBot[1].
 
-### **OpenInfra Summit Pricing**
+IRC
 
-Late Full Access Pass: $1099
+The main form of synchronous communication between attendees during the PTG is on IRC. If you are not on IRC, learn how to get started here[2]. The main PTG IRC channel is #openinfra-events on the OFTC network. It's also used to interact with the PTGbot, and where Foundation staff will be present to help answer questions.
 
-All prices in USD.
+PTGBOT
 
-### **OpenInfra Summit Schedule**
+The PTGbot[1] is an open source tool that PTG track moderators use to surface what's currently happening at the event.
 
-OpenInfra Summit attendees will engage in 100+ sessions around infrastructure use cases like cloud computing, edge computing, hardware enablement, and security. The OpenInfra Summit is focused on helping users compose, integrate, and operate these different technologies to solve real problems at scale.
+Track moderators will send messages to the bot via the #openinfra-events channel on IRC, and from that information, the bot publishes a webpage with several sections of information:
 
-In addition to sessions on projects directly supported by the OpenInfra Foundation—OpenStack, StarlingX, Kata Containers, Airship, Zuul, and OpenInfra Labs—there will be a strong focus on over 30 other open source technologies relevant to infrastructure operators, including Linux, Kubernetes, Docker, Ansible, Ceph, Istio, Envoy, Magma, OpenContrail, ONAP, OPNFV and many more.
+- The discussion topics currently discussed in the room ("now")
 
-The event agenda is organized by use cases, including AI, CI/CD, containers, edge computing, hardware enablement, HPC, hybrid cloud, NFV, security and public and private cloud.
+- An indicative set of discussion topics coming up next ("next")
 
-Learn more at: <a href="https://openinfra.dev/summit/vancouver-2023" target="_blank">https://openinfra.dev/summit/vancouver-2023</a>
+- The schedule for the day with available extra slots for your team to book, should you need additional meeting time.
 
-<h3><b>OpenInfra Summit Sponsors</b></h3>
+Learn more about the PTGbot via the documentation here[3].
 
-The generous support of our sponsors makes it possible for our community to gather, learn and build the future of open infrastructure. Having a presence at the OpenInfra Summit is a great way to get your company in front of the OpenInfra community.
+NEED HELP?
 
-Sponsorships for Vancouver are now live! Learn more <a href="https://openinfra.dev/summit/vancouver-2023/summit-sponsor/" target="_blank">here</a>.
+If you run into any issues during the PTG week, please message Kendall Nelson (diablo_rojo) on IRC in the #openinfra-events channel or email ptg@openinfra.dev and we will help you out!
 
-### **Code of Conduct**
+CODE OF CONDUCT
 
-The OpenInfra Foundation is dedicated to providing an inclusive and safe OpenInfra Summit experience for everyone, regardless of gender, sexual orientation, disability, physical appearance, body size, race, nationality or religion. We do not tolerate harassment of OpenInfra Summit participants in any form. By registering for this event, we expect you to have read and agree to the <a href="https://openinfra.dev/legal/code-of-conduct/events" target="_blank">OpenInfra Events Code of Conduct</a>.
+The OpenInfra Foundation is dedicated to providing an inclusive and safe PTG experience for everyone, regardless of gender, sexual orientation, disability, physical appearance, body size, race, nationality or religion. We do not tolerate harassment of PTG participants in any form. By registering for this event, we expect you to have read and agree to the OpenInfra Community Code of Conduct and Event Code of Conduct.
+
+Before the PTG begins, please review the Code of Conduct [4] and know how to report an issue.
+
+PRIVACY
+
+Personal information we gather for registration and at the event is handled in accordance with our Privacy Policy. We will share pictures and videos we take at the event with the OpenInfra community, such as on www.openinfra.dev. Other personal data is not published and, unless you consent to an additional use, is used for internal purposes only. We may share your personal data with third parties who provide services to us, but we share only the information that is reasonably necessary for the third party to provide the service and we do not authorize any further use or disclosure of your personal
+
+KEY LINKS
+
+[﻿1] PTGbot: https://ptg.opendev.org/ptg.html
+
+[﻿2]Setup IRC: https://docs.openstack.org/contributors/common/irc.html
+
+[﻿3]PTGbot Docs: https://opendev.org/openstack/ptgbot/src/branch/master/README.rst
+
+[4] Code of Conduct: https://openinfra.dev/legal/code-of-conduct

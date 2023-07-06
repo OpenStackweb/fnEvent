@@ -6,8 +6,8 @@ const GeneralSettings = require('./src/content/settings.json');
 
 module.exports = {
   siteMetadata: {
-    title: 'OpenInfra Summit Vancouver 2023',
-    description: 'The OpenInfra Summit + PTG Vancouver is an opportunity to work alongside the individuals who construct and manage open-source systems utilizing Linux, OpenStack, Kubernetes, and over 30 additional technologies.',
+    title: 'Virtual PTG October 2023',
+    description: 'The second Project Teams Gathering of 2023 will be held October 23-27 and will be a virtual event.',
   },
   plugins: [
     "gatsby-plugin-root-import",

@@ -1,6 +1,6 @@
 backend:
   name: github
-  branch: prod/vancouver
+  branch: prod/ptg-2023
   repo: OpenStackweb/fnEvent
   commit_messages:
     create: 'Create {{collection}} “{{slug}}”'

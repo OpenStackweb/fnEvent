@@ -11,16 +11,6 @@
       "display": false
     },
     {
-      "requiresAuth": false,
-      "showOnlyAtShowTime": false,
-      "pageRestriction": [
-        "ANY"
-      ],
-      "title": "Schedule",
-      "link": "https://vancouver2023.openinfra.dev/a/schedule",
-      "display": true
-    },
-    {
       "title": "My Tickets",
       "link": "/a/my-tickets",
       "display": true,

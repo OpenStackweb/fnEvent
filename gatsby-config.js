@@ -6,7 +6,7 @@ const GeneralSettings = require('./src/content/settings.json');
 
 module.exports = {
   siteMetadata: {
-    title: 'Virtual PTG October 2023',
+    title: 'Virtual PTG',
     description: 'The second Project Teams Gathering of 2023 will be held October 23-27 and will be a virtual event.',
   },
   plugins: [

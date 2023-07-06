@@ -1,14 +1,14 @@
 {
   "heroBanner": {
-    "title": "OpenInfra Summit Vancouver 2023",
+    "title": "Virtual Project Teams Gathering- October 2023",
     "subTitle": "Meet the users, developers, and vendors who are building and operating open infrastructure.",
-    "date": "June 13-15, 2023",
+    "date": "October 23-27, 2023",
     "time": "",
     "dateLayout": true,
     "buttons": {
       "registerButton": {
         "text": "Register now",
-        "display": false
+        "display": true
       },
       "loginButton": {
         "text": "Log in",

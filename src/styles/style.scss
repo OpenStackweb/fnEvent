@@ -692,4 +692,14 @@ a[href*="support@fntech.com"] {
   }
 }
 
+.container.marketing-section-content {
+  h4 {
+    font-size: 20px;
+  }
+
+  ul li {
+    font-size: 17px;
+  }
+}
+
 @import "~openstack-uicore-foundation/lib/css/components/extra-questions.css";

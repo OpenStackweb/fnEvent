@@ -12,7 +12,7 @@ The Project Teams Gathering (PTG) is an event organized by the OpenInfra Foundat
 
 If your team was planning to meet and isn't in this list, please contact <a href="mailto:ptg@openinfra.dev">ptg@openinfra.dev</a>
 
-#### OpenInfra Foundation Teams
+#### OPENINFRA FOUNDATION TEAMS
 
 <ul>
     <li>Diversity & Inclusion Working Group</li>
@@ -21,7 +21,7 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>StarlingX</li>
 </ul>
 
-#### OpenStack Service Teams
+#### OPENSTACK SERVICE TEAMS
 
 <ul>
     <li>Blazar</li>
@@ -44,7 +44,7 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>Tacker</li>
 </ul>
 
-#### Other OpenStack Teams
+#### OTHER OPENSTACK TEAMS
 
 <ul>
     <li>Interoperability Working Group</li>

@@ -36,6 +36,7 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>Neutron</li>
     <li>Nova</li>
     <li>Octavia</li>
+    <li>OpenStack-Ansible</li>
     <li>OpenStack Charms</li>
     <li>OpenStack-Helm</li>
     <li>Quality Assurance</li>
@@ -50,6 +51,8 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>Interoperability Working Group</li>
     <li>OpenStack Security SIG</li>
     <li>PublicCloud SIG</li>
+    <li>RBAC</li>
+    <li>OpenStack Technical Committee</li>
 </ul>
 
 ### SCHEDULE

@@ -19,6 +19,7 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>OpenInfra Edge Computing Group</li>
     <li>Environmental Sustainability Working Group</li>
     <li>StarlingX</li>
+    <li>Kata Containers</li>
 </ul>
 
 #### OPENSTACK SERVICE TEAMS
@@ -43,6 +44,7 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>OpenStackSDK/CLI</li>
     <li>Swift</li>
     <li>Tacker</li>
+    <li>Keystone</li>
 </ul>
 
 #### OTHER OPENSTACK TEAMS

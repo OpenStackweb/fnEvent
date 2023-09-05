@@ -32,6 +32,7 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>Glance</li>
     <li>Horizon</li>
     <li>Ironic</li>
+    <li>Keystone</li>
     <li>Kolla</li>
     <li>Manila</li>
     <li>Neutron</li>
@@ -44,7 +45,6 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>OpenStackSDK/CLI</li>
     <li>Swift</li>
     <li>Tacker</li>
-    <li>Keystone</li>
 </ul>
 
 #### OTHER OPENSTACK TEAMS

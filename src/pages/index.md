@@ -57,7 +57,7 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>OpenStack Technical Committee</li>
 </ul>
 
-### OPENINFRA ADJACENT COMMUNITIES
+#### OPENINFRA ADJACENT COMMUNITIES
 
 <ul>
     <li>Confidential Containers</li>

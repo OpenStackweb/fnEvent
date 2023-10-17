@@ -57,6 +57,12 @@ If your team was planning to meet and isn't in this list, please contact <a href
     <li>OpenStack Technical Committee</li>
 </ul>
 
+### OPENINFRA ADJACENT COMMUNITIES
+
+<ul>
+    <li>Confidential Containers</li>
+</ul>
+
 ### SCHEDULE
 
 The schedule is not set yet, but when it becomes available, you will be able to see it via the PTGBot[1].

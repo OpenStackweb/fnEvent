@@ -36,6 +36,16 @@
       "pageRestriction": [
         "ANY"
       ]
+    },
+    {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Live Schedule",
+      "link": "https://ptg.opendev.org/ptg.html",
+      "display": true
     }
   ]
 }
